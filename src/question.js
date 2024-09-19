@@ -12,17 +12,7 @@ class Question {
     }
 
     shuffleChoices () {
-        const newChoices = [];
-        let randomNumber = 0;
-        while (this.choices.length > 0){
-            randomNumber = Math.floor(Math.random() * this.choices.length);
-            newChoices.push(this.choices[randomNumber]);
-            this.choices.splice(randomNumber, 1);
-        }
-        this.choices = newChoices;
-    }
-
-    print(){
-        console.log(this.choices);
+        const randomisedArray = this.choices.sort(() => 0.5 - Math.random());
+        this.choices = randomisedArray;
     }
 }
