@@ -42,4 +42,13 @@ class Quiz {
         const difArray = [1, 2, 3];
         this.questions = this.questions.filter(question => (question.difficulty === difficulty) || !(difficulty in difArray));
     }
+
+    averageDifficulty(){
+        if (!this.questions) {
+            return 0;
+        }
+        let average = this.questions.reduce((acc, curr) => acc + curr.difficulty, 0) / this.questions.length; 
+        
+        return average;
+    }
 }
