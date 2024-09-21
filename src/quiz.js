@@ -37,4 +37,9 @@ class Quiz {
             return false;
         }
     }
+
+    filterQuestionsByDifficulty(difficulty){
+        const difArray = [1, 2, 3];
+        this.questions = this.questions.filter(question => (question.difficulty === difficulty) || !(difficulty in difArray));
+    }
 }
