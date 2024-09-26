@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
     question.choices.forEach(choice => {
       choiceContainer.innerHTML += `
       <li>
-      <input type="radio" name="choice" value="${choice}">
+      <input type="radio" name="choice" value="${choice}" class="choice">
       <label>${choice}</label>
       </li>
     `;
@@ -151,6 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // YOUR CODE HERE:
     //
     // 1. Get all the choice elements. You can use the `document.querySelectorAll()` method.
+    let allChoices = document.querySelectorAll('.choice');
 
 
     // 2. Loop through all the choice elements and check which one is selected
@@ -158,11 +159,20 @@ document.addEventListener("DOMContentLoaded", () => {
       //  When a radio input gets selected the `.checked` property will be set to true.
       //  You can use check which choice was selected by checking if the `.checked` property is true.
 
+    let selectedChoice; 
+    allChoices.forEach(choice => {
+      if (choice.checked){
+        selectedChoice = choice.value;
+      }
+    });
       
     // 3. If an answer is selected (`selectedAnswer`), check if it is correct and move to the next question
       // Check if selected answer is correct by calling the quiz method `checkAnswer()` with the selected answer.
       // Move to the next question by calling the quiz method `moveToNextQuestion()`.
       // Show the next question by calling the function `showQuestion()`.
+    quiz.checkAnswer(selectedChoice);  
+    quiz.moveToNextQuestion();
+    showQuestion();
   }  
 
 
