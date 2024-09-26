@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. Update the question count text 
     // Update the question count (div#questionCount) show the current question out of total questions
     
-    questionCount.innerText = `Question ${currentQuestionIndex + 1} of 10`; //  This value is hardcoded as a placeholder
+    questionCount.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`; //  This value is hardcoded as a placeholder
 
 
     
@@ -173,10 +173,18 @@ document.addEventListener("DOMContentLoaded", () => {
     quiz.checkAnswer(selectedChoice);  
     quiz.moveToNextQuestion();
     showQuestion();
-  }  
-
-
-
+  }
+  const resetBtn = document.createElement("button");
+    resetBtn.innerHTML = "Reset";
+    resetBtn.classList.add("button-secondary")
+    resetBtn.addEventListener("click", () => {
+      quiz.currentQuestionIndex = 0;
+      quiz.correctAnswers = 0;
+      endView.style.display = "none";
+      quizView.style.display = "block";
+      showQuestion();
+    })
+      endView.appendChild(resetBtn);
 
   function showResults() {
 
@@ -184,12 +192,13 @@ document.addEventListener("DOMContentLoaded", () => {
     //
     // 1. Hide the quiz view (div#quizView)
     quizView.style.display = "none";
+    endView.style.display = "flex";
 
     // 2. Show the end view (div#endView)
-    endView.style.display = "flex";
     
     // 3. Update the result container (div#result) inner text to show the number of correct answers out of total questions
-    resultContainer.innerText = `You scored 1 out of 1 correct answers!`; // This value is hardcoded as a placeholder
+    resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${questions.length} correct answers!`; // This value is hardcoded as a placeholder
+
   }
   
 });
