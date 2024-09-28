@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new Question("What is the mass–energy equivalence equation?", ["E = mc^2", "E = m*c^2", "E = m*c^3", "E = m*c"], "E = mc^2", 3),
     // Add more questions here
   ];
-  const quizDuration = 120; // 120 seconds (2 minutes)
+  const quizDuration = 10; // 120 seconds (2 minutes)
 
 
   /************  QUIZ INSTANCE  ************/
@@ -59,8 +59,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /************  TIMER  ************/
 
-  let timer;
+let timer;
+let newSeconds = seconds;
+let newMinutes = minutes;
 
+
+timer = setInterval(() => {
+    quiz.timeRemaining--;
+    newMinutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+    newSeconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+    timeRemainingContainer.innerText = `${newMinutes}:${newSeconds}`;
+
+
+
+    if (quiz.timeRemaining === 0){
+        clearInterval(timer);
+        showResults();
+    }
+
+}, 1000);
+
+function resetTimer() {
+  quiz.timeRemaining = quizDuration;
+}
 
   /************  EVENT LISTENERS  ************/
 
@@ -79,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function showQuestion() {
     // If the quiz has ended, show the results
     if (quiz.hasEnded()) {
+      clearInterval(timer)
       showResults();
       return;
     }
@@ -178,6 +200,8 @@ document.addEventListener("DOMContentLoaded", () => {
     resetBtn.innerHTML = "Reset";
     resetBtn.classList.add("button-secondary")
     resetBtn.addEventListener("click", () => {
+      resetTimer();
+      timeRemainingContainer.innerText = `${minutes}:${seconds}`;
       quiz.currentQuestionIndex = 0;
       quiz.correctAnswers = 0;
       endView.style.display = "none";

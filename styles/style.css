@@ -36,6 +36,10 @@ header {
     align-items: center;
 }
 
+#quizview {
+    position: relative;
+}
+
 .view {
     text-align: center;
     margin-top: 20px;
@@ -163,6 +167,9 @@ input[type="radio"] {
 }
 
 #timeRemaining {
+    position:absolute;
+    top: 65px;
+    right: 40px;
     font-size: 14px;
     font-style: italic;
     color: #333;
