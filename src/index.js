@@ -80,7 +80,20 @@ timer = setInterval(() => {
 }, 1000);
 
 function resetTimer() {
+  clearInterval(timer);
   quiz.timeRemaining = quizDuration;
+
+  timer = setInterval(() => {
+    quiz.timeRemaining--;
+    const newMinutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+    const newSeconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+    timeRemainingContainer.innerText = `${newMinutes}:${newSeconds}`;
+
+    if (quiz.timeRemaining === 0) {
+        clearInterval(timer);
+        showResults();
+    }
+}, 1000);
 }
 
   /************  EVENT LISTENERS  ************/
