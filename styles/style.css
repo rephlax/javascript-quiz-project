@@ -36,7 +36,7 @@ header {
     align-items: center;
 }
 
-#quizview {
+.container {
     position: relative;
 }
 
