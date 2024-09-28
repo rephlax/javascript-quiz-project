@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new Question("What is the mass–energy equivalence equation?", ["E = mc^2", "E = m*c^2", "E = m*c^3", "E = m*c"], "E = mc^2", 3),
     // Add more questions here
   ];
-  const quizDuration = 10; // 120 seconds (2 minutes)
+  const quizDuration = 120; // 120 seconds (2 minutes)
 
 
   /************  QUIZ INSTANCE  ************/
@@ -63,8 +63,8 @@ let timer;
 let newSeconds = seconds;
 let newMinutes = minutes;
 
-
-timer = setInterval(() => {
+function startTimer() {
+  timer = setInterval(() => {
     quiz.timeRemaining--;
     newMinutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
     newSeconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
@@ -77,23 +77,15 @@ timer = setInterval(() => {
         showResults();
     }
 
-}, 1000);
+  }, 1000);
+}
+
 
 function resetTimer() {
   clearInterval(timer);
   quiz.timeRemaining = quizDuration;
 
-  timer = setInterval(() => {
-    quiz.timeRemaining--;
-    const newMinutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
-    const newSeconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
-    timeRemainingContainer.innerText = `${newMinutes}:${newSeconds}`;
-
-    if (quiz.timeRemaining === 0) {
-        clearInterval(timer);
-        showResults();
-    }
-}, 1000);
+  startTimer()
 }
 
   /************  EVENT LISTENERS  ************/
