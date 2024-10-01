@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new Question("What is the mass–energy equivalence equation?", ["E = mc^2", "E = m*c^2", "E = m*c^3", "E = m*c"], "E = mc^2", 3),
     // Add more questions here
   ];
-  const quizDuration = 10; // 120 seconds (2 minutes)
+  const quizDuration = 120; // 120 seconds (2 minutes)
 
 
   /************  QUIZ INSTANCE  ************/
@@ -197,9 +197,6 @@ function resetTimer() {
 
   
   function nextButtonHandler () {
-    let selectedAnswer; // A variable to store the selected answer value
-
-
 
     // YOUR CODE HERE:
     //
@@ -212,10 +209,13 @@ function resetTimer() {
       //  When a radio input gets selected the `.checked` property will be set to true.
       //  You can use check which choice was selected by checking if the `.checked` property is true.
 
-    let selectedChoice; 
+    let selectedChoiceValue; 
+    let selectedChoiceElement;
+
     allChoices.forEach(choice => {
       if (choice.checked){
-        selectedChoice = choice.value;
+        selectedChoiceValue = choice.value;
+        selectedChoiceElement = choice;
       }
     });
       
@@ -223,8 +223,15 @@ function resetTimer() {
       // Check if selected answer is correct by calling the quiz method `checkAnswer()` with the selected answer.
       // Move to the next question by calling the quiz method `moveToNextQuestion()`.
       // Show the next question by calling the function `showQuestion()`.
-    quiz.checkAnswer(selectedChoice);  
-    quiz.moveToNextQuestion();
+    let answerResult = quiz.checkAnswer(selectedChoiceValue);  
+    if (answerResult) {
+        selectedChoiceElement.style.color = "green";
+    } else {
+      selectedChoiceElement.style.color = "red";
+    }
+    setTimeout(() => {
+      quiz.moveToNextQuestion();
+  }, 3000);
     showQuestion();
   }
   const resetBtn = document.createElement("button");

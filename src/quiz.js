@@ -14,7 +14,8 @@ class Quiz {
     }
     
     moveToNextQuestion(){
-        this.currentQuestionIndex ++;
+            this.currentQuestionIndex ++;
+
     }
 
     shuffleQuestions(){
@@ -26,6 +27,9 @@ class Quiz {
         let question = this.getQuestion();
         if (answer ===  question.answer){
             this.correctAnswers ++;
+            return true
+        }   else {
+            return false
         }
     }
 
