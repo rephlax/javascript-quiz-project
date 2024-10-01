@@ -98,6 +98,7 @@ input[type="radio"] {
     font-weight: bold;
     margin: 0 auto;
     margin-bottom: 10px;
+    z-index: 111;
 }
 
 .content {
@@ -110,6 +111,7 @@ input[type="radio"] {
     min-width: 25px;
     margin: 0 auto;
     text-align: left;
+    z-index: 111;
 }
 
 #quizDescription, #question, #result {
@@ -119,10 +121,12 @@ input[type="radio"] {
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 12px;
+    z-index: 111;
 }
 
 #quizDescription {
     margin-bottom: 20px;
+    z-index: 111;
 }
 
 
@@ -132,6 +136,7 @@ input[type="radio"] {
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 5px;
+    z-index: 111;
 }
 
 #progressBar {
@@ -139,6 +144,7 @@ input[type="radio"] {
     background-color: #4caf50;
     width: 0%;
     border-radius: 8px;
+    z-index: 111;
 }
 
 #result-progress {
@@ -147,6 +153,8 @@ input[type="radio"] {
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 5px;
+    z-index: 111;
+    
 }
 
 .divider {
@@ -156,6 +164,7 @@ input[type="radio"] {
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 5px;
+    z-index: 111;
 }
 
 #resultProgressBar {
@@ -164,16 +173,16 @@ input[type="radio"] {
     background-color: #4caf50;
     width: 100%;
     border-radius: 8px;
+    z-index: 111;
 }
 
 #timeRemaining {
     position:absolute;
-    top: 65px;
-    right: 40px;
+    top: 5px;
+    right: 10px;
     font-size: 14px;
     font-style: italic;
     color: #333;
     margin: 0 auto;
-    margin-top: -35px;
-    margin-bottom: 12px;
+    z-index: 1;
 }

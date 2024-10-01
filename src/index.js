@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new Question("What is the mass–energy equivalence equation?", ["E = mc^2", "E = m*c^2", "E = m*c^3", "E = m*c"], "E = mc^2", 3),
     // Add more questions here
   ];
-  const quizDuration = 120; // 120 seconds (2 minutes)
+  const quizDuration = 10; // 120 seconds (2 minutes)
 
 
   /************  QUIZ INSTANCE  ************/
@@ -63,22 +63,39 @@ let timer;
 let newSeconds = seconds;
 let newMinutes = minutes;
 
+const maxFontSize = 94;
+const minFontSize = 16;
+
 function startTimer() {
   timer = setInterval(() => {
-    quiz.timeRemaining--;
-    newMinutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
-    newSeconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
-    timeRemainingContainer.innerText = `${newMinutes}:${newSeconds}`;
+    if (quiz.timeRemaining > 0) {
+      quiz.timeRemaining--;
+      newMinutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+      newSeconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+      timeRemainingContainer.innerText = `${newMinutes}:${newSeconds}`;
 
+      const elapsedTimePercent = ((quizDuration - quiz.timeRemaining) / quizDuration) * 100;
+      const fontSize = minFontSize + (elapsedTimePercent / 100) * (maxFontSize - minFontSize);
+      timeRemainingContainer.style.fontSize = `${fontSize}px`;
 
+      if (elapsedTimePercent <= 25) {
+        timeRemainingContainer.style.color = "green";
+      } else if (elapsedTimePercent <= 50) {
+        timeRemainingContainer.style.color = "yellowgreen";
+      } else if (elapsedTimePercent <= 75) {
+        timeRemainingContainer.style.color = "orange";
+      } else {
+        timeRemainingContainer.style.color = "red";
+      }
 
-    if (quiz.timeRemaining === 0){
+      if (quiz.timeRemaining === 0) {
         clearInterval(timer);
         showResults();
+      }
     }
-
   }, 1000);
 }
+startTimer();
 
 
 function resetTimer() {
@@ -136,6 +153,15 @@ function resetTimer() {
     const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
     progressBar.style.width = `${progressPercent}%`; // This value is hardcoded as a placeholder
 
+    if (progressPercent <= 25) {
+        progressBar.style.backgroundColor = "red";
+    } else if (progressPercent <= 50) {
+        progressBar.style.backgroundColor = "orange";
+    } else if (progressPercent <= 75) {
+        progressBar.style.backgroundColor = "yellow";
+    } else {
+        progressBar.style.backgroundColor = "#4caf50";
+    }
 
 
     // 3. Update the question count text 
@@ -204,6 +230,7 @@ function resetTimer() {
   const resetBtn = document.createElement("button");
     resetBtn.innerHTML = "Reset";
     resetBtn.classList.add("button-secondary")
+    resetBtn.style.zIndex = "111";
     resetBtn.addEventListener("click", () => {
       resetTimer();
       timeRemainingContainer.innerText = `${minutes}:${seconds}`;
