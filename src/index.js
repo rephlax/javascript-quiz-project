@@ -188,7 +188,7 @@ function resetTimer() {
       choiceContainer.innerHTML += `
       <li>
       <input type="radio" name="choice" value="${choice}" class="choice">
-      <label>${choice}</label>
+      <label value="${choice}" >${choice}</label>
       </li>
     `;
     });
@@ -224,15 +224,28 @@ function resetTimer() {
       // Move to the next question by calling the quiz method `moveToNextQuestion()`.
       // Show the next question by calling the function `showQuestion()`.
     let answerResult = quiz.checkAnswer(selectedChoiceValue);  
-    if (answerResult) {
-        selectedChoiceElement.style.color = "green";
-    } else {
-      selectedChoiceElement.style.color = "red";
+    const allChoice = choiceContainer.querySelectorAll("label");
+
+    for (let i = 0; i < allChoice.length; i++){
+      if (quiz.questions[quiz.currentQuestionIndex].answer === allChoice[i].innerText) {
+        allChoice[i].style.color = "green";
+        console.log("good job")
+      } else {
+        allChoice[i].style.color = "red";
+      }
     }
+
+
+    // if (answerResult) {
+    //     selectedChoiceElement.style.color = "green";
+    // } else {
+    //   selectedChoiceElement.style.color = "red";
+    // }
     setTimeout(() => {
       quiz.moveToNextQuestion();
+      showQuestion();
+      console.log("timer")
   }, 3000);
-    showQuestion();
   }
   const resetBtn = document.createElement("button");
     resetBtn.innerHTML = "Reset";
