@@ -63,7 +63,7 @@ let timer;
 let newSeconds = seconds;
 let newMinutes = minutes;
 
-const maxFontSize = 94;
+const maxFontSize = 50;
 const minFontSize = 16;
 
 function startTimer() {
